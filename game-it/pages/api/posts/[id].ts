@@ -43,14 +43,14 @@ export default async function handler(
 
   if (request.method === 'PUT') {
     // NOT getting the id from the body since is already on the query
-    const title = request.body?.title;
+    const title = request.body?.postTitle;
     const body = request.body?.body;
     const postId = request.body?.postId;
     const image = request.body?.image;
-    const subredditsId = request.body?.subredditsId;
+    const subredditsId = request.body?.subredditId;
 
     // Check all the information to create events
-    if (!(title || body || postId)) {
+    if (!((title && body && postId) || image)) {
       return response.status(400).json({ message: 'property is missing' });
     }
 

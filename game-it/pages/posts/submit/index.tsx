@@ -1,5 +1,3 @@
-// import { Delete } from '@emotion-icons/fluentui-system-regular';
-// import { css } from '@emotion/react';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -18,39 +16,36 @@ type Props = {
   subredditsList: Subreddit[];
   postsss: Post[];
   user: UserHier;
-  // cloudinaryAPI: string | undefined;
+  cloudinaryAPI: string | undefined;
 };
 
 export default function Admin(props: Props) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [postTitleInput, setPostTitleInput] = useState('');
   const [bodyInput, setBodyInput] = useState('');
-  // const [addressInput, setAddressInput] = useState('');
-  // const [image, setImage] = useState('');
-  // const [dateInput, setDateInput] = useState<string>();
-  // const [priceInput, setPriceInput] = useState(false);
+  const [image, setImage] = useState('');
   const [subredditIdInput, setSubredditIdInput] = useState(0);
   const [onEditId, setOnEditId] = useState<number>(0);
-  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  // const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+
   // // cloudinary part
-  // const uploadImage = async (post: any) => {
-  //   const files = post.currentTarget.files;
-  //   const formData = new FormData();
-  //   formData.append('file', files[0]);
-  //   formData.append('upload_preset', 'posts_photo');
+  const uploadImage = async (post: any) => {
+    const files = post.currentTarget.files;
+    const formData = new FormData();
+    formData.append('file', files[0]);
+    formData.append('upload_preset', 'atfji7tr');
 
-  //   const response = await fetch(
-  //     `	https://api.cloudinary.com/v1_1/${props.cloudinaryAPI}/image/upload`,
-  //     {
-  //       method: 'POST',
-  //       body: formData,
-  //     },
-  //   );
-  //   const file = await response.json();
-  //   console.log('file url address', file.secure_url);
+    const response = await fetch(
+      `	https://api.cloudinary.com/v1_1/${props.cloudinaryAPI}/image/upload`,
+      {
+        method: 'POST',
+        body: formData,
+      },
+    );
+    const file = await response.json();
 
-  //   setImage(file.secure_url);
-  // };
+    setImage(file.secure_url);
+  };
 
   // calling all posts from the database
   async function getPostsFromApi() {
@@ -68,13 +63,10 @@ export default function Admin(props: Props) {
         },
         body: JSON.stringify({
           userId: props.user.id.toString(),
-          // image: image,
+          image: image,
           postTitle: postTitleInput,
           body: bodyInput,
-          // address: addressInput,
-          // postDate: dateInput,
           subredditId: subredditIdInput,
-          // free: priceInput,
         }),
       });
 
@@ -108,13 +100,10 @@ export default function Admin(props: Props) {
       },
       body: JSON.stringify({
         postId: onEditId.toString(),
-        // image: image,
+        image: image,
         postTitle: postTitleInput,
         body: bodyInput,
-        // address: addressInput,
-        // postDate: dateInput,
         subredditId: subredditIdInput,
-        // free: priceInput,
       }),
     });
     const updatedPostFromApi = (await response.json()) as Post;
@@ -133,7 +122,7 @@ export default function Admin(props: Props) {
     const e = posts.find((e) => e.id === id);
     if (e) {
       setPostTitleInput(e.title);
-      // setImage(e.image);
+      setImage(e.image);
       setBodyInput(e.body);
       setSubredditIdInput(e.subredditsId);
       setOnEditId(e.id);
@@ -143,13 +132,10 @@ export default function Admin(props: Props) {
   }
   function clearStatus() {
     setOnEditId(0);
-    // setAddressInput('');
     setPostTitleInput('');
     setBodyInput('');
-    // setDateInput('');
-    // setImage('');
+    setImage('');
     setSubredditIdInput(0);
-    // setPriceInput(false);
   }
 
   useEffect(() => {
@@ -161,26 +147,26 @@ export default function Admin(props: Props) {
   return (
     <>
       <Head>
-        <title>Frontend post api</title>
-        <meta name="body" content=" admin form " />
+        <title>Submit to GameIt</title>
+        <meta name="body" content=" Submit form " />
       </Head>
       <div>
         <div>
-          <h1>Posts Form</h1>
+          <h1>Create a post</h1>
           <div>
-            {/* <input type="file" name="image" onChange={uploadImage} /> */}
-            {/* <div>
+            <input type="file" name="image" onChange={uploadImage} />
+            <div>
               <Image
                 src={image}
                 width={200}
                 height={200}
                 alt="upload an image "
               />
-            </div> */}
+            </div>
           </div>
 
           <input
-            placeholder="Post Title"
+            placeholder="Title"
             value={postTitleInput}
             required
             onChange={(post) => {
@@ -192,7 +178,7 @@ export default function Admin(props: Props) {
 
           <br />
           <textarea
-            placeholder="Post Body"
+            placeholder="Text (optional)"
             required
             value={bodyInput}
             onChange={(post) => {
@@ -202,35 +188,17 @@ export default function Admin(props: Props) {
 
           <br />
 
-          {/* <input
-            placeholder="Location"
-            required
-            value={addressInput}
-            onChange={(post) => {
-              setAddressInput(post.currentTarget.value);
-            }}
-          />
-
-          <br /> */}
           <div>
-            {' '}
-            {/* <input
-              type="date"
-              value={dateInput}
-              required
-              onChange={(post) => {
-                setDateInput(post.currentTarget.value);
-              }}
-            /> */}
-            <label> Subreddit: </label>
+            <label> Topic/Genre: </label>
             <select
+              className="search-dark"
               required
               value={subredditIdInput}
               onChange={(post) => {
                 setSubredditIdInput(Number(post.currentTarget.value));
               }}
             >
-              <option>select one</option>
+              <option>Select a topic </option>
               {props.subredditsList?.map((subreddit) => {
                 return (
                   <option
@@ -245,18 +213,8 @@ export default function Admin(props: Props) {
           </div>
 
           <br />
-          {/* <label>
-            free
-            <input
-              type="checkbox"
-              required
-              checked={priceInput}
-              onChange={(post) => {
-                setPriceInput(Boolean(post.currentTarget.checked));
-              }}
-            />
-          </label> */}
           <br />
+
           <div>
             {' '}
             <button
@@ -276,8 +234,11 @@ export default function Admin(props: Props) {
           </div>
 
           <hr />
+
+          <h2>Your Past Posts.</h2>
+          <hr className="my-2 h-px bg-gray-200 border-0 dark:bg-gray-700" />
         </div>
-        <div>
+        <div className="mt-5 space-y-5">
           {/* <input
             placeholder="search"
             onChange={(e) => {
@@ -298,10 +259,12 @@ export default function Admin(props: Props) {
           /> */}
           {posts?.map((post) => {
             return (
-              <div key={`postId-${post.id}`}>
+              <div
+                className="border-solid border-2 border-black rounded"
+                key={`postId-${post.id}`}
+              >
                 <div>Post Name: {post.title} </div>
                 <div>
-                  <Link href={`/posts/admin/${post.id}`}> more</Link>
                   <button
                     onClick={() => {
                       edit(post.id);
@@ -316,7 +279,9 @@ export default function Admin(props: Props) {
                         await deletePostFromApiById(post.id);
                       }
                     }}
-                  ></a>
+                  >
+                    <button>DELETE</button>
+                  </a>
                 </div>
               </div>
             );
@@ -332,7 +297,7 @@ export async function getServerSideProps(
 ): Promise<GetServerSidePropsResult<Props>> {
   const token = context.req.cookies.sessionToken;
   const user = token && (await getUserBySessionToken(token));
-  // const cloudinaryAPI = process.env.CLOUDINARY_NAME;
+  const cloudinaryAPI = process.env.CLOUDINARY_NAME;
   if (!user) {
     return {
       redirect: {
@@ -349,7 +314,7 @@ export async function getServerSideProps(
       subredditsList: subredditsList,
       postsss: JSON.parse(JSON.stringify(postsByLoggedInUser)),
       user: user,
-      // cloudinaryAPI: cloudinaryAPI,
+      cloudinaryAPI: cloudinaryAPI,
     },
   };
 }

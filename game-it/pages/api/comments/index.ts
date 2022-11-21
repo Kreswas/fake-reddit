@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createPost, getPost } from '../../../database/post';
+import { createComment, getComments } from '../../../database/comments';
 import { getValidSessionByToken } from '../../../database/sessions';
 
 export default async function handler(
@@ -17,27 +17,25 @@ export default async function handler(
     return;
   }
   if (request.method === 'GET') {
-    const posts = await getPost();
+    const posts = await getComments();
     return response.status(200).json(posts);
   }
 
   if (request.method === 'POST') {
-    const image = request.body?.image;
-    const title = request.body?.postTitle;
-    const body = request.body?.body;
-    const subredditsId = request.body?.subredditId;
+    const postId = Number(request.body?.postId);
+    console.log('postid', postId);
+    const text = request.body?.text;
     const userId = Number(request.body?.userId);
-    console.log('check', typeof userId);
-    if (!(image || title || body || subredditsId || userId)) {
+
+    if (!(postId || text || userId)) {
       return response
         .status(400)
-        .json({ message: 'one of the properties of the form is missing' });
+        .json({ message: 'property of the comment is missing' });
     }
     // create a new post using the database util function
-    // const newPost = await createPost(image, title, body, subredditsId, userId);
-    const newPost = await createPost(image, title, body, subredditsId, userId);
-    console.log('newpost', newPost);
-    return response.status(200).json(newPost);
+    const newComment = await createComment(text, postId, userId);
+    console.log(newComment);
+    return response.status(200).json(newComment);
   }
 
   return response.status(400).json({ message: 'Method not allowed' });

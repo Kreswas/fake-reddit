@@ -39,7 +39,7 @@ export default function Register(props: Props) {
     const returnTo = router.query.returnTo;
     if (
       returnTo &&
-      !Array.isArray(returnTo) && // Security: Validate returnTo parameter against valid path
+      !Array.isArray(returnTo) && // Security: Validate return To parameter against valid path
       // (because this is untrusted user input)
       /^\/[a-zA-Z0-9-?=/]*$/.test(returnTo)
     ) {
@@ -72,6 +72,7 @@ export default function Register(props: Props) {
             placeholder="Email"
           /> */}
           <input
+            className="text-black"
             value={username}
             onChange={(event) => {
               setUsername(event.currentTarget.value.toLowerCase());
@@ -79,6 +80,8 @@ export default function Register(props: Props) {
             placeholder="Username"
           />
           <input
+            className="text-black"
+            type="password"
             value={password}
             onChange={(event) => {
               setPassword(event.currentTarget.value);

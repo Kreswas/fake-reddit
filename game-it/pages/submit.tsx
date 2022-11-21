@@ -13,7 +13,7 @@ export default function UserProfile() {
         <title>Your Profile | GameIt</title>
         <meta name="description" content="Submit New Post Page" />
       </Head>
-      <div>gonna make a page here to post</div>
+      <div>gonna make a page here to post</div> {/* or maybe not */}
     </>
   );
 }

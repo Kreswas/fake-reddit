@@ -4,7 +4,7 @@ export type Post = {
   id: number;
   title: string;
   body: string;
-  // image: string;
+  image: string;
   subredditsId: number;
   userId: number;
 };
@@ -12,7 +12,7 @@ export type PostDTO = {
   id: number;
   title: string;
   body: string;
-  // image: string;
+  image: string;
   subredditsId: number;
   topic: string;
   userId: number;
@@ -30,14 +30,14 @@ export async function getPostsWithJoint() {
   const posts = await sql<PostDTO[]>`
   SELECT posts.id, posts.image, posts.title, posts.body, posts.subreddits_id, posts.user_id, subreddits.topic, users.username
   FROM posts inner join subreddits on posts.subreddits_id=subreddits.id inner join users on posts.user_id =users.id
--- order by  posts.post_date desc;
+  ORDER BY posts.id DESC;
 `;
   return posts;
 }
 // for subreddit on the posts page
 export async function getPostsWithJointBySubredditsId(id: number) {
   const posts = await sql<PostDTO[]>`
-  SELECT posts.id, posts.title, posts.body, posts.subreddits_id, posts.user_id,  subreddits.topic, users.username
+  SELECT posts.id, posts.image, posts.title, posts.body, posts.subreddits_id, posts.user_id,  subreddits.topic, users.username
   FROM posts inner join subreddits on posts.subreddits_id=subreddits.id inner join users on posts.user_id =users.id
   WHERE posts.subreddits_id=${id};
 `;
@@ -82,7 +82,7 @@ export async function getPostByIdAndValidSessionToken(
 // just to try do not push
 export async function getFoundPostById(id: number) {
   const [post] = await sql<PostDTO[]>`
-  SELECT posts.id, posts.title, posts.body, posts.subreddits_id, posts.user_id,  subreddits.topic, users.username
+  SELECT posts.id, posts.image, posts.title, posts.body, posts.subreddits_id, posts.user_id,  subreddits.topic, users.username
   FROM posts inner join subreddits on posts.subreddits_id=subreddits.id inner join users on posts.user_id = users.id
   WHERE posts.id=${id};
   `;
@@ -90,7 +90,7 @@ export async function getFoundPostById(id: number) {
 }
 
 export async function createPost(
-  // image: string,
+  image: string,
   title: string,
   body: string,
   subredditsId: number,
@@ -98,15 +98,14 @@ export async function createPost(
 ) {
   const [post] = await sql<Post[]>`
     INSERT INTO posts
-      -- ( image,
-       (title,
-       body,
-      --  post_date,
-       subreddits_id,
-       user_id,
+      ( image,
+        title,
+        body,
+        subreddits_id,
+        user_id
        )
     VALUES
-      (${title}, ${body}, ${subredditsId},${userId})
+      (${image}, ${title}, ${body}, ${subredditsId},${userId})
     RETURNING *
   `;
   return post;
@@ -114,7 +113,7 @@ export async function createPost(
 
 export async function updatePostById(
   id: number,
-  // image: string,
+  image: string,
   title: string,
   body: string,
   subredditsId: number,
@@ -123,7 +122,7 @@ export async function updatePostById(
     UPDATE
       posts
     SET
-    -- image = $ --{image},
+    image = ${image},
     title = ${title},
     body = ${body},
     subreddits_id=${subredditsId},

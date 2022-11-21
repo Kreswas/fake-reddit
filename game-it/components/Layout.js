@@ -7,7 +7,10 @@ export default function Layout(props) {
     <>
       <Head>
         <title>GamIt</title>
-        <meta name="description" content="Queer event managment" />
+        <meta
+          name="Platform for games for Gamers!"
+          content="Social platform where you can Share/Talk about games"
+        />
         <link rel="icon" href="favicon-16.jpeg" />
       </Head>
       <Header user={props.user} />

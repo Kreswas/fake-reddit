@@ -4,8 +4,8 @@ exports.up = async (sql) => {
   title varchar(50) NOT NULL,
   body varchar(400),
   subreddits_id integer REFERENCES subreddits(id),
-  image varchar(300),
-  user_id integer REFERENCES users(id)
+  user_id integer REFERENCES users(id),
+  image varchar(300)
 );`;
 };
 

@@ -4,6 +4,51 @@
 
 @layer components {
   .icon {
-    @apply h-9 w-6 lg:w-9 cursor-pointer rounded-sm lg:p-1 lg:hover:bg-gray-100;
+    @apply h-9 w-6 lg:w-9 cursor-pointer rounded-sm lg:p-1 lg:hover:bg-gray-100 rounded-full;
   }
+}
+
+body {
+  --bg: #dae0e6;
+  --surface: #ffffff;
+  --surface-2: #aaa;
+  --text: #222;
+  --text-reversed: #f2f2f2;
+  --select-dark: #f2f2f2;
+  --login-text: white;
+
+  background: var(--bg);
+  color: var(--text);
+}
+
+.surface {
+  background-color: var(--surface);
+}
+
+.text-reversed {
+  color: var(--text-reversed);
+}
+
+.text-reversed {
+  background-color: var(--surface-2);
+}
+
+.search-dark {
+  background-color: var(--select-dark);
+}
+
+.login-text {
+  color: var(--login-text);
+}
+.register-text {
+  color: var();
+}
+
+body.dark {
+  --bg: #222;
+  --surface: #383838;
+  --surface-2: #aaa;
+  --text: #f2f2f2;
+  --text-reversed: #383838;
+  --select-dark: #636363;
 }

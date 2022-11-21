@@ -41,11 +41,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   useEffect(() => {
     refreshUserProfile().catch(() => console.log('fetch api failed'));
   }, [refreshUserProfile]);
+
   return (
-    <>
+    // <div className="bg-slate-200">
+    <div>
       <SessionProvider session={session}>
         <Layout user={user}>
-          <div className="h-screen overflow-y-scroll bg-slate-200">
+          <div>
             {/* <Header /> */}
             <Component {...pageProps} refreshUserProfile={refreshUserProfile} />
           </div>
@@ -66,7 +68,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       {/* <Layout user={user}>
         <Component {...pageProps} refreshUserProfile={refreshUserProfile} />
       </Layout> */}
-    </>
+    </div>
   );
 }
 

@@ -32,7 +32,7 @@ export async function createComment(
   const [comment] = await sql<Comment[]>`
     INSERT INTO comments
       ( text,
-       post_id,
+       posts_id,
        user_id
        )
     VALUES
@@ -63,9 +63,9 @@ export async function getCommentByIdAndValidSessionToken(
 }
 export async function getFoundCommentByPostId(id: number) {
   const comments = await sql<CommentDTO[]>`
-  SELECT comments.id, comments.text, comments.user_id, comments.post_id, users.username
+  SELECT comments.id, comments.text, comments.user_id, comments.posts_id, users.username
   FROM comments inner join users on comments.user_id =users.id
-  WHERE comments.post_id=${id};
+  WHERE comments.posts_id=${id};
   `;
   return comments;
 }

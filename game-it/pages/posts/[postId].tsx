@@ -43,9 +43,12 @@ export default function SinglePost(props: Props) {
     });
 
     const commentFromApi = (await response.json()) as CommentDTO;
-    const newState = [...allComments, commentFromApi];
+    const newState = [
+      ...allComments,
+      { ...commentFromApi, username: props.user?.username },
+    ];
     setAllComments(newState);
-    console.log(newState);
+    console.log('state', newState);
     setNewComment('');
   }
 
@@ -63,7 +66,7 @@ export default function SinglePost(props: Props) {
           <meta name="description" content="post not found" />
         </Head>
         <h1>{props.error}</h1>
-        sorry , try <Link href="/index.js">this</Link>
+        sorry, try <Link href="/index.js">this</Link>
       </div>
     );
   }
@@ -71,25 +74,27 @@ export default function SinglePost(props: Props) {
     <div>
       <div>
         <div>
-          <Image
-            src={
-              props.foundPostsss ? props.foundPostsss.image : 'uploaded image'
-            }
-            width={350}
-            height={350}
-            alt="preview"
-          />
-        </div>
-
-        <div>
           <div>
-            <div>Host:{props.foundPostsss?.username}</div>
-            <div>Post Name: {props.foundPostsss?.title}</div>
-            <div> Category: {props.foundPostsss?.topic}</div>
+            <div>User:{props.foundPostsss?.username}</div>
+            <div>Title: {props.foundPostsss?.title}</div>
+            <div>{props.foundPostsss?.body}</div>
+            <div>
+              <Image
+                src={
+                  props.foundPostsss
+                    ? props.foundPostsss.image
+                    : 'uploaded image'
+                }
+                width={350}
+                height={350}
+                alt="preview"
+              />
+            </div>
+            <div> Topic: {props.foundPostsss?.topic}</div>
           </div>
         </div>
       </div>
-      <p>Ask your questions here !</p>
+      <p>Leave a comment.</p>
       <div>
         {props.user ? (
           <>
@@ -106,6 +111,7 @@ export default function SinglePost(props: Props) {
               ></textarea>
               <div>
                 <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   onClick={async () => {
                     await createCommentFromApi();
                   }}
@@ -116,12 +122,13 @@ export default function SinglePost(props: Props) {
             </div>
             <div>
               {allComments?.map((comment) => {
+                console.log('comments', allComments);
                 return (
                   <div key={`commentsList-${comment.id}`}>
                     <div>
                       <div>
                         {/* <Person/> */}
-                        {comment.username}:
+                        Username: {comment.username}
                       </div>
                       <div> {comment.text}</div>
                     </div>
@@ -159,7 +166,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   const foundPost = await getFoundPostById(Number(postId));
-
   if (typeof foundPost === 'undefined') {
     return {
       props: {
@@ -173,7 +179,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       databaseComments: databaseComments ? databaseComments : [],
-      foundPostsss: JSON.parse(JSON.stringify(foundPost)),
+      // foundPostsss: JSON.parse(JSON.stringify(foundPost)),
+      foundPostsss: foundPost,
       user: user ? user : null,
     },
   };

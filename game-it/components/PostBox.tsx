@@ -11,7 +11,7 @@ function PostBox() {
           type="text"
           // placeholder={session ? 'Create a Post' : 'Sign in to Post'}
           placeholder="Create a Post"
-          onClick={() => (location.href = '/posts/admin')}
+          onClick={() => (location.href = '/posts/submit')}
         />
       </div>
     </form>
@@ -19,3 +19,5 @@ function PostBox() {
 }
 
 export default PostBox;
+
+// mt-5 space-y-5 mx-auto max-w-2xl
