@@ -7,7 +7,6 @@
     "migrate": "dotenv ley"
   },
   "dependencies": {
-    "@emotion/css": "^11.10.5",
     "@heroicons/react": "^2.0.13",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie": "^0.5.1",
@@ -26,12 +25,13 @@
     "postgres": "^3.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "FortAwesome/Font-Awesome": "*"
+    "react-timeago": "^7.1.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "@types/react-timeago": "^4.1.3",
     "@upleveled/eslint-config-upleveled": "^3.3.8",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.18",

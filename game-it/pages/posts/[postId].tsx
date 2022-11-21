@@ -79,15 +79,14 @@ export default function SinglePost(props: Props) {
             <div>Title: {props.foundPostsss?.title}</div>
             <div>{props.foundPostsss?.body}</div>
             <div>
-              <Image
+              <img
                 src={
                   props.foundPostsss
                     ? props.foundPostsss.image
                     : 'uploaded image'
                 }
-                width={350}
-                height={350}
-                alt="preview"
+                className="w-full"
+                alt=""
               />
             </div>
             <div> Topic: {props.foundPostsss?.topic}</div>
@@ -179,8 +178,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       databaseComments: databaseComments ? databaseComments : [],
-      // foundPostsss: JSON.parse(JSON.stringify(foundPost)),
-      foundPostsss: foundPost,
+      foundPostsss: JSON.parse(JSON.stringify(foundPost)),
+      // foundPostsss: foundPost,
       user: user ? user : null,
     },
   };

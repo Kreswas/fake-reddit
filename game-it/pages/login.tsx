@@ -1,4 +1,3 @@
-import { css } from '@emotion/css';
 import { GetServerSidePropsContext } from 'next';
 import { signIn } from 'next-auth/react';
 import Head from 'next/head';

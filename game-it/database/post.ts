@@ -5,6 +5,7 @@ export type Post = {
   title: string;
   body: string;
   image: string;
+  postDate: string;
   subredditsId: number;
   userId: number;
 };
@@ -13,6 +14,7 @@ export type PostDTO = {
   title: string;
   body: string;
   image: string;
+  postDate: string;
   subredditsId: number;
   topic: string;
   userId: number;
@@ -28,7 +30,7 @@ export async function getPost() {
 
 export async function getPostsWithJoint() {
   const posts = await sql<PostDTO[]>`
-  SELECT posts.id, posts.image, posts.title, posts.body, posts.subreddits_id, posts.user_id, subreddits.topic, users.username
+  SELECT posts.id, posts.image, posts.title, posts.body, posts.post_date, posts.subreddits_id, posts.user_id, subreddits.topic, users.username
   FROM posts inner join subreddits on posts.subreddits_id=subreddits.id inner join users on posts.user_id =users.id
   ORDER BY posts.id DESC;
 `;
@@ -37,7 +39,7 @@ export async function getPostsWithJoint() {
 // for subreddit on the posts page
 export async function getPostsWithJointBySubredditsId(id: number) {
   const posts = await sql<PostDTO[]>`
-  SELECT posts.id, posts.image, posts.title, posts.body, posts.subreddits_id, posts.user_id,  subreddits.topic, users.username
+  SELECT posts.id, posts.image, posts.title, posts.body, posts.post_date, posts.subreddits_id, posts.user_id,  subreddits.topic, users.username
   FROM posts inner join subreddits on posts.subreddits_id=subreddits.id inner join users on posts.user_id =users.id
   WHERE posts.subreddits_id=${id};
 `;
@@ -81,8 +83,9 @@ export async function getPostByIdAndValidSessionToken(
 }
 // just to try do not push
 export async function getFoundPostById(id: number) {
+  if (!id) return undefined;
   const [post] = await sql<PostDTO[]>`
-  SELECT posts.id, posts.image, posts.title, posts.body, posts.subreddits_id, posts.user_id,  subreddits.topic, users.username
+  SELECT posts.id, posts.image, posts.title, posts.body, posts.post_date, posts.subreddits_id, posts.user_id,  subreddits.topic, users.username
   FROM posts inner join subreddits on posts.subreddits_id=subreddits.id inner join users on posts.user_id = users.id
   WHERE posts.id=${id};
   `;

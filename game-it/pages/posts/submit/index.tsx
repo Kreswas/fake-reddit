@@ -156,12 +156,7 @@ export default function Admin(props: Props) {
           <div>
             <input type="file" name="image" onChange={uploadImage} />
             <div>
-              <Image
-                src={image}
-                width={200}
-                height={200}
-                alt="upload an image "
-              />
+              <img src={image} className="w-full" alt="" />
             </div>
           </div>
 

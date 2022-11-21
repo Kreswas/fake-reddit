@@ -2,6 +2,7 @@ import type { GetServerSidePropsResult, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
+import TimeAgo from 'react-timeago';
 import PostBox from '../components/PostBox';
 import { getPostsWithJoint, PostDTO } from '../database/post';
 import { getSubreddits, Subreddit } from '../database/subreddit';
@@ -83,6 +84,7 @@ export default function PostFromDataBase(props: Props) {
                       {post.topic}
                     </div>
                     <div className="text-xs">Posted by u/{post.username}</div>
+                    <TimeAgo date={post.postDate} className="text-xs" />
                   </div>
                   <h3 className="text-lg">{post.title}</h3>
                   {/* <hr /> */}
