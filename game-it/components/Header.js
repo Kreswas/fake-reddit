@@ -19,11 +19,13 @@ import Link from 'next/link';
 import React, { useEffect } from 'react';
 
 function Anchor({ children, ...restProps }) {
+  // console.log(typeof children);
+  // console.log(children);
   // using a instead of Link since we want to force a full refresh
   return <a {...restProps}>{children}</a>;
 }
 
-function Header(props: string) {
+function Header(props) {
   const { data: session } = useSession();
 
   useEffect(() => {

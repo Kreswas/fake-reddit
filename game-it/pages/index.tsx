@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
 import TimeAgo from 'react-timeago';
+// import Avatar from '../components/Avatar';
 import PostBox from '../components/PostBox';
 import { getPostsWithJoint, PostDTO } from '../database/post';
 import { getSubreddits, Subreddit } from '../database/subreddit';
@@ -83,8 +84,25 @@ export default function PostFromDataBase(props: Props) {
                     <div className="text-xs text-reversed py-1 px-2 rounded surface-2">
                       {post.topic}
                     </div>
-                    <div className="text-xs">Posted by u/{post.username}</div>
-                    <TimeAgo date={post.postDate} className="text-xs" />
+                    <div className="flex text-xs">
+                      Posted by:
+                      {
+                        <Image
+                          className="mt-0 ml-2 mr-1"
+                          width={15}
+                          height={15}
+                          alt=""
+                          src={`https://avatars.dicebear.com/api/identicon/${post.username}.svg`}
+                        />
+                      }{' '}
+                      u/{post.username}
+                      {/* </div> */}
+                    </div>
+                    <div className="text-xs flex flex-col "></div>
+                    <TimeAgo
+                      date={post.postDate}
+                      className="text-xs flex-end"
+                    />
                   </div>
                   <h3 className="text-lg">{post.title}</h3>
                   {/* <hr /> */}
