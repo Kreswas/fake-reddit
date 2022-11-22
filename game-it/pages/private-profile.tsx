@@ -1,7 +1,12 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { getPostByLoggedInUser, Post } from '../database/post';
+import TimeAgo from 'react-timeago';
+import {
+  getPostByLoggedInUser,
+  getPostsWithJoint,
+  Post,
+} from '../database/post';
 import { getUserBySessionToken, User } from '../database/users';
 
 type Props = {
@@ -36,13 +41,15 @@ export default function UserProfile(props: Props) {
         <div>
           <br />
           <br />
+          <strong>
+            <h1 className="text-center text-3xl">Hello, {nameCapitalized}!</h1>
+          </strong>
           <br />
           <br />
           <br />
         </div>
         <div>
           {/* <h1>Hello! {props.user.username}</h1> */}
-          <h1>Hello! {nameCapitalized}</h1>
           {/* <p>Home Page</p> */}
           <button>
             <Link href="/">Home Page</Link>
@@ -59,6 +66,7 @@ export default function UserProfile(props: Props) {
               <a href={`posts/${post.id}`}>
                 <div className="flex flex-col gap-4">
                   {/* <div className="flex justify-between"> */}
+                  <TimeAgo date={post.postDate} className="text-xs flex-end" />
                   <div className="text-lg">Title: {post.title}</div>
                   <hr />
                   <div className="mb-5">{post.body}</div>
@@ -86,8 +94,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
   const postsByInUser = user && (await getPostByLoggedInUser(user.id));
+  const postsList = await getPostsWithJoint();
   return {
     // postss: JSON.parse(JSON.stringify(postsByInUser)),
-    props: { user, postss: JSON.parse(JSON.stringify(postsByInUser)) },
+    props: {
+      user,
+      postss: JSON.parse(JSON.stringify(postsByInUser)),
+    },
   };
 }

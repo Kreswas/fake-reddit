@@ -4,14 +4,10 @@ import {
   HomeIcon,
 } from '@heroicons/react/20/solid';
 import {
-  BellIcon,
-  ChatBubbleLeftIcon,
-  GlobeAltIcon,
   MagnifyingGlassIcon,
   MoonIcon,
   PlusIcon,
   UserCircleIcon,
-  VideoCameraIcon,
 } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -58,7 +54,7 @@ function Header(props) {
         <ChevronDownIcon className="h-5 w-5 cursor-pointer" />
       </Link>
       {/* Search box */}
-      <form className="flex flex-1 items-center space-x-2 rounded-sm border border-gray-200 bg-gray-100 px-3 py-1 rounded-full">
+      <form className="flex flex-1 items-center space-x-2 rounded-full border border-gray-200 post px-3 py-1">
         <MagnifyingGlassIcon className="h-6 w-6 text-gray-400" />
         <input
           className="flex-1 bg-transparent outline-none"
@@ -68,17 +64,11 @@ function Header(props) {
         <button type="submit" hidden />
       </form>
       <div className=" text-gray-500 space-x-2 mx-5 items-center hidden lg:inline-flex">
-        {/* <SparklesIcon className="icon" onClick={() => toggleDarkMode()} /> */}
-        {/* <GlobeAltIcon className="icon" /> */}
-        {/* <VideoCameraIcon className="icon" /> */}
-        {/* <ChatBubbleLeftIcon className="icon" /> */}
-        {/* <BellIcon className="icon" /> */}
         <MoonIcon className="icon" onClick={() => toggleDarkMode()} />
         <PlusIcon
           className="icon"
           onClick={() => (location.href = '/posts/submit')}
         />
-        {/* <UserCircleIcon className="icon" /> */}
       </div>
       <div className="ml-5 flex items-center lg:hidden">
         <Bars3Icon className="icon" />

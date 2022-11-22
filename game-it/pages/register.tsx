@@ -59,45 +59,54 @@ export default function Register(props: Props) {
           <meta name="description" content="login page of the app" />
         </Head>
 
-        <div>
-          <h3> Create Your Account </h3>
+        <div className="flex flex-col space-y-8 mt-8">
+          <h3 className="font-bold text-2xl text-center">
+            Create Your Account
+          </h3>
           {errors.map((error) => {
             return <p key={error.message}>ERROR: {error.message}</p>;
           })}
-          {/* <input
-            value={email}
-            onChange={(event) => {
-              setEmail(event.currentTarget.value);
-            }}
-            placeholder="Email"
-          /> */}
-          <input
-            className="text-black"
-            value={username}
-            onChange={(event) => {
-              setUsername(event.currentTarget.value.toLowerCase());
-            }}
-            placeholder="Username"
-          />
-          <input
-            className="text-black"
-            type="password"
-            value={password}
-            onChange={(event) => {
-              setPassword(event.currentTarget.value);
-            }}
-            placeholder="Password"
-          />
-          <div>
-            <button
-              onClick={async () => {
-                await registerHandler();
-              }}
-            >
-              Sign Up
-            </button>
-            <p>Already a user ?</p>
-            <Link href="/login">Login</Link>
+          <div className="flex items-center justify-center ">
+            {/** change the color here */}
+            <div className="bg-form flex flex-col w-1/3 border border-gray-900 rounded-lg px-8 py-5">
+              {/** change the color here */}
+              <div className="flex flex-col space-y-5 mt-5">
+                <label className="font-bold text-lg text-white ">
+                  User Name
+                </label>
+                <input
+                  className="text-white border rounded-lg py-3 px-3 mt-4 bg-black border-indigo-600 placeholder-white-500"
+                  value={username}
+                  onChange={(event) => {
+                    setUsername(event.currentTarget.value.toLowerCase());
+                  }}
+                  placeholder="Username"
+                />
+                <label className="font-bold tex-lg text-white">Password</label>
+                <input
+                  className="border rounded-lg py-3 px-3 bg-black border-indigo-600 placeholder-white-500 text-white"
+                  type="password"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.currentTarget.value);
+                  }}
+                  placeholder="Password"
+                />
+                <br />
+                <button
+                  className="border border-indigo-600 bg-black text-white rounded-lg py-3 font-semibold"
+                  onClick={async () => {
+                    await registerHandler();
+                  }}
+                >
+                  Sign Up
+                </button>
+                <div>
+                  <p>Already a user ?</p>
+                  <Link href="/login">Login</Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

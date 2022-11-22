@@ -8,6 +8,8 @@ import { getFoundPostById, PostDTO } from '../../database/post';
 import { getUserBySessionToken } from '../../database/users';
 import { parseIntFromContextQuery } from '../../utils/contextQuery';
 
+// import TimeAgo from 'react-timeago';
+
 type UserHere = {
   id: number;
   username: string;
@@ -72,76 +74,112 @@ export default function SinglePost(props: Props) {
   }
   return (
     <div>
-      <div>
-        <div>
-          <div>
-            <div>User:{props.foundPostsss?.username}</div>
-            <div>Title: {props.foundPostsss?.title}</div>
-            <div>{props.foundPostsss?.body}</div>
-            <div>
-              <img
-                src={
-                  props.foundPostsss
-                    ? props.foundPostsss.image
-                    : 'uploaded image'
-                }
-                className="w-full"
-                alt=""
-              />
+      <div
+        key={`posts-${props.foundPostsss?.id}`}
+        className="drop-shadow-sm surface p-4 rounded mt-5 mb-5 space-y-5 mx-auto max-w-2xl"
+      >
+        <div className="flex flex-col gap-4">
+          <div className="flex justify-between">
+            <div className="text-xs text-reversed py-1 px-2 rounded surface-2">
+              {props.foundPostsss?.topic}
             </div>
-            <div> Topic: {props.foundPostsss?.topic}</div>
+            <div className="flex text-xs justify-end">
+              Posted by:
+              {
+                <Image
+                  className="mt-0 ml-2 mr-1"
+                  width={15}
+                  height={15}
+                  alt=""
+                  src={`https://avatars.dicebear.com/api/identicon/${props.foundPostsss?.username}.svg`}
+                />
+              }{' '}
+              u/{props.foundPostsss?.username}
+              {/* </div> */}
+            </div>
+            {/* <div className="text-xs flex flex-col "></div> */}
+            {/* <TimeAgo
+                date={props.foundPostsss?.postDate}
+                className="text-xs flex-end"
+              /> */}
           </div>
+          <h3 className="text-lg">{props.foundPostsss?.title}</h3>
+          {/* <hr /> */}
+          <div className="place-self-center">
+            <img className="w-full" src={props.foundPostsss?.image} alt="" />
+          </div>
+          <hr />
+          <div className="mb-5">{props.foundPostsss?.body}</div>
         </div>
-      </div>
-      <p>Leave a comment.</p>
-      <div>
-        {props.user ? (
-          <>
-            <div>
-              {' '}
-              <textarea
-                value={newComment}
-                placeholder=" Leave a comment "
-                rows={5}
-                cols={50}
-                onChange={(post) => {
-                  setNewComment(post.currentTarget.value);
-                }}
-              ></textarea>
+        <hr />
+        {/* <div className="mt-1">
+          <strong>
+            <em>add the upvotes add the comment number with the icon???????</em>
+          </strong>
+        </div> */}
+        <p>Leave a comment.</p>
+        <div className="grid place-items-center">
+          {props.user ? (
+            <>
               <div>
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={async () => {
-                    await createCommentFromApi();
+                {' '}
+                <textarea
+                  className="comment-bg"
+                  value={newComment}
+                  placeholder=" Leave a comment "
+                  rows={5}
+                  cols={50}
+                  onChange={(post) => {
+                    setNewComment(post.currentTarget.value);
                   }}
-                >
-                  {/* <Send/> */}
-                </button>
+                ></textarea>
+                <div>
+                  <button
+                    // className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    onClick={async () => {
+                      await createCommentFromApi();
+                    }}
+                  >
+                    Comment
+                  </button>
+                </div>
               </div>
-            </div>
-            <div>
-              {allComments?.map((comment) => {
-                console.log('comments', allComments);
-                return (
-                  <div key={`commentsList-${comment.id}`}>
-                    <div>
+              <div className="">
+                {allComments?.map((comment) => {
+                  console.log('comments', allComments);
+                  return (
+                    <div key={`commentsList-${comment.id}`}>
                       <div>
-                        {/* <Person/> */}
-                        Username: {comment.username}
+                        <div className="flex text-xs ">
+                          {/* <Person/> */}
+                          u/:
+                          {
+                            <Image
+                              className="mt-0 ml-2 mr-1"
+                              width={15}
+                              height={15}
+                              alt=""
+                              src={`https://avatars.dicebear.com/api/identicon/${props.foundPostsss?.username}.svg`}
+                            />
+                          }
+                          {comment.username}
+                        </div>
+                        <hr className="bg-color:#fff border-t-2 border-dotted border-hr_color mt-1" />
+                        <div> {comment.text}</div>
                       </div>
-                      <div> {comment.text}</div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+            </>
+          ) : (
+            <div>
+              <div> to leave a comment please first log in </div>
+              <Link href="/login">Login</Link>
             </div>
-          </>
-        ) : (
-          <div>
-            <div> to leave a comment please first log in </div>
-            <Link href="/login">Login</Link>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <br />
       <br />

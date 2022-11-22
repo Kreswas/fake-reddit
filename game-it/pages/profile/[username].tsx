@@ -3,23 +3,6 @@ import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { getUserByUsername, User } from '../../database/users';
 
-// const containerStyles = css`
-//   width: 500px;
-//   margin: 0 auto;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   p {
-//     padding: 10px;
-//     background-color: blue;
-//     color: white;
-//     text-align: center;
-//   }
-// `;
-// const imgStyles = css`
-//   border-radius: 50%;
-// `;
-
 type Props = {
   user?: User;
 };

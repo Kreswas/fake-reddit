@@ -55,7 +55,8 @@ export async function getPostById(id: number) {
 
 export async function getPostByLoggedInUser(id: number) {
   const posts = await sql<Post[]>`
-  SELECT * FROM posts where user_id=${id};
+  SELECT * FROM posts where user_id=${id}
+  ORDER BY posts.id DESC;
 `;
   return posts;
 }

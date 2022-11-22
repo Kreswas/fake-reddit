@@ -151,12 +151,17 @@ export default function Admin(props: Props) {
         <meta name="body" content=" Submit form " />
       </Head>
       <div>
-        <div>
+        <div
+          className="
+       position-relative;
+      width-100%;
+      display-block;"
+        >
           <h1>Create a post</h1>
           <div>
             <input type="file" name="image" onChange={uploadImage} />
             <div>
-              <img src={image} className="w-full" alt="" />
+              <img src={image} className="height-20 width-20" alt="" />
             </div>
           </div>
 
@@ -174,7 +179,7 @@ export default function Admin(props: Props) {
           <br />
           <textarea
             placeholder="Text (optional)"
-            required
+            // required
             value={bodyInput}
             onChange={(post) => {
               setBodyInput(post.currentTarget.value);
@@ -258,7 +263,8 @@ export default function Admin(props: Props) {
                 className="border-solid border-2 border-black rounded"
                 key={`postId-${post.id}`}
               >
-                <div>Post Name: {post.title} </div>
+                <div></div>
+                <div>Post Title: {post.title} </div>
                 <div>
                   <button
                     onClick={() => {
@@ -281,6 +287,7 @@ export default function Admin(props: Props) {
               </div>
             );
           })}
+          <br />
         </div>
       </div>
     </>

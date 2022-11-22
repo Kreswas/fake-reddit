@@ -7,80 +7,6 @@ import { useState } from 'react';
 import { getValidSessionByToken } from '../database/sessions';
 import { LoginResponseBody } from './api/login';
 
-// const buttonStyles = css`
-//   text-decoration: none;
-//   padding: 5px 10px;
-//   font-size: 20px;
-//   width: 220px;
-//   height: 50px;
-//   border: none;
-//   outline: none;
-//   color: #fff;
-//   background: #111;
-//   cursor: pointer;
-//   position: relative;
-//   z-index: 0;
-//   border-radius: 10px;
-//   :before {
-//     content: '';
-//     background: linear-gradient(
-//       45deg,
-//       #ff0000,
-//       #ff7300,
-//       #fffb00,
-//       #48ff00,
-//       #00ffd5,
-//       #002bff,
-//       #7a00ff,
-//       #ff00c8,
-//       #ff0000
-//     );
-//     position: absolute;
-//     top: -2px;
-//     left: -2px;
-//     background-size: 400%;
-//     z-index: -1;
-//     filter: blur(5px);
-//     width: calc(100% + 4px);
-//     height: calc(100% + 4px);
-//     animation: glowing 20s linear infinite;
-//     opacity: 0;
-//     transition: opacity 0.3s ease-in-out;
-//     border-radius: 10px;
-//   }
-//   :active {
-//     color: #000;
-//   }
-//   :active:after {
-//     background: transparent;
-//   }
-//   :hover:before {
-//     opacity: 1;
-//   }
-//   :after {
-//     z-index: -1;
-//     content: '';
-//     position: absolute;
-//     width: 100%;
-//     height: 100%;
-//     background: #111;
-//     left: 0;
-//     top: 0;
-//     border-radius: 10px;
-//   }
-//   @keyframes glowing {
-//     0% {
-//       background-position: 0 0;
-//     }
-//     50% {
-//       background-position: 400% 0;
-//     }
-//     100% {
-//       background-position: 0 0;
-//     }
-//   }
-// `;
-
 type Props = {
   refreshUserProfile: () => Promise<void>;
 };
@@ -140,49 +66,59 @@ export default function Login(props: Props) {
           <meta name="description" content="login page of the app" />
         </Head>
 
-        <div>
-          <h3> Your Account </h3>
+        <div className="flex flex-col space-y-8 mt-8">
+          <h3 className="font-bold text-2xl text-center"> Your Account </h3>
           {errors.map((error) => {
             return <p key={error.message}>ERROR: {error.message}</p>;
           })}
-          <input
-            className="text-black"
-            value={username}
-            onChange={(event) => {
-              setUsername(event.currentTarget.value.toLowerCase());
-            }}
-            placeholder="Username"
-          />
-          <input
-            className="text-black"
-            type="password"
-            value={password}
-            onChange={(event) => {
-              setPassword(event.currentTarget.value);
-            }}
-            placeholder="Password"
-          />
-          <br />
-          <div>
-            <button
-              // css={buttonStyles}
-              onClick={async () => {
-                await loginHandler();
-              }}
-            >
-              Log In
-            </button>
-            <p> Don't have any account ?</p>
-            <Link href="/register">Create Account</Link>
-          </div>
-          <div>
-            <p>or log in with</p>
-            <button
-              className="cursor-pointer items-center space-x-2 border border-gray-100 p-2 lg:flex hover:bg-gray-100"
-              onClick={() => signIn()}
-            >
-              Reddit
-            </button>
+          <div className="flex items-center justify-center ">
+            <div className="bg-black flex flex-col w-1/3 border border-gray-900 rounded-lg px-8 py-5">
+              <div className="flex flex-col space-y-5 mt-5">
+                <label className="font-bold text-lg text-white ">
+                  User Name
+                </label>
+                <input
+                  className="text-white border rounded-lg py-3 px-3 mt-4 bg-black border-indigo-600 placeholder-white-500"
+                  value={username}
+                  onChange={(event) => {
+                    setUsername(event.currentTarget.value.toLowerCase());
+                  }}
+                  placeholder="Username"
+                />
+                <label className="font-bold text-lg text-white">Password</label>
+                <input
+                  className="border rounded-lg py-3 px-3 bg-black border-indigo-600 placeholder-white-500 text-white"
+                  type="password"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.currentTarget.value);
+                  }}
+                  placeholder="Password"
+                />
+                <br />
+                <button
+                  className="border border-indigo-600 bg-black text-white rounded-lg py-3 font-semibold"
+                  onClick={async () => {
+                    await loginHandler();
+                  }}
+                >
+                  Log In
+                </button>
+                <div>
+                  <p> Don't have any account ?</p>
+                  <Link href="/register">Create Account</Link>
+                </div>
+                <div>
+                  <p>or log in with</p>
+                  <button
+                    className="cursor-pointer items-center space-x-2 border border-gray-100 p-2 lg:flex hover:bg-gray-100"
+                    onClick={() => signIn()}
+                  >
+                    Reddit
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

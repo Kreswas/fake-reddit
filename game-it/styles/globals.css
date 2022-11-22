@@ -6,16 +6,21 @@
   .icon {
     @apply h-9 w-6 lg:w-9 cursor-pointer rounded-sm lg:p-1 lg:hover:bg-gray-100 rounded-full;
   }
+  .comment-icon {
+    @apply h-7 w-5 cursor-pointer hover:bg-gray-100 rounded-full;
+  }
 }
 
 body {
-  --bg: #dae0e6;
-  --surface: #ffffff;
+  --bg: #030303;
+  --surface: #1a1a1b;
   --surface-2: #aaa;
-  --text: #222;
-  --text-reversed: #f2f2f2;
-  --select-dark: #f2f2f2;
-  --login-text: white;
+  --text: #f2f2f2;
+  --text-reversed: #383838;
+  --select-dark: #636363;
+  --comment: #2b2b2b;
+  --post: #272729;
+  --sidebar: #2f2f30;
 
   background: var(--bg);
   color: var(--text);
@@ -43,12 +48,27 @@ body {
 .register-text {
   color: var();
 }
+.comment-bg {
+  background-color: var(--comment);
+}
+.post {
+  background-color: var(--post);
+}
+.sidebar {
+  background-color: var(--sidebar);
+}
 
 body.dark {
-  --bg: #222;
-  --surface: #383838;
+  --bg: #dae0e6;
+  --surface: #ffffff;
   --surface-2: #aaa;
-  --text: #f2f2f2;
-  --text-reversed: #383838;
-  --select-dark: #636363;
+  --text: #222;
+  --text-reversed: #f2f2f2;
+  --select-dark: #f2f2f2;
+  --login-text: white;
+  --comment: #f3f4f6;
+  --post: white;
+  --sidebar: #2f2f30;
+  background: var(--bg);
+  color: var(--text);
 }
