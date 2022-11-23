@@ -11,7 +11,8 @@ export default function Layout(props) {
           name="Platform for games for Gamers!"
           content="Social platform where you can Share/Talk about games"
         />
-        <link rel="icon" href="favicon-16.jpeg" />
+        <link rel="icon" href="video-games-joystick-svgrepo-com.svg" />
+        {/* <link rel="icon" href="joystick-svgrepo-com.svg" /> */}
       </Head>
       <Header user={props.user} />
       <main>{props.children}</main>

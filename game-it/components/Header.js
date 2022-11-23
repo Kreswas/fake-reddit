@@ -44,7 +44,9 @@ function Header(props) {
           <Image
             objectFit="contain"
             alt="Header Image"
-            src="https://www.redditinc.com/assets/images/blog/_720xAUTO_crop_center-center_none/f4232-snoo-games.png"
+            src="/video-games-joystick-svgrepo-com.png"
+            // className="bg-white bg-contain rounded-full"
+            // src="https://www.redditinc.com/assets/images/blog/_720xAUTO_crop_center-center_none/f4232-snoo-games.png"
             layout="fill"
           />
         </Link>
@@ -52,10 +54,10 @@ function Header(props) {
       <Link href="/" className="mx-7 flex items-center">
         <HomeIcon className="h-5 w-5" />
         <p className=" ml-2 hidden lg:inline cursor-default">Home</p>
-        <ChevronDownIcon className="h-5 w-5 cursor-pointer" />
+        <ChevronDownIcon className="h-5 w-24 cursor-pointer" />
       </Link>
       {/* Search box */}
-      <form className="flex flex-1 items-center space-x-2 rounded-full border border-gray-200 post px-3 py-1 mr-20">
+      <form className="flex flex-1 items-center space-x-2 rounded-full border border-gray-200 post px-3 py-1 mr-20 ml-20">
         <MagnifyingGlassIcon className="h-6 w-6 text-gray-400" />
         <input
           className="flex-1 bg-transparent outline-none"
