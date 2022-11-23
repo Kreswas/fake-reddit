@@ -94,16 +94,21 @@ export default function Register(props: Props) {
                 />
                 <br />
                 <button
-                  className="border border-indigo-600 bg-black text-white rounded-lg py-3 font-semibold"
+                  className="border border-indigo-600 bg-black text-white rounded-lg py-3 mx-28 font-semibold hover:bg-gray-900"
                   onClick={async () => {
                     await registerHandler();
                   }}
                 >
                   Sign Up
                 </button>
-                <div>
-                  <p>Already a user ?</p>
-                  <Link href="/login">Login</Link>
+                <div className="text-center">
+                  <p className="mb-4">Already a user ?</p>
+                  <Link
+                    href="/login"
+                    className="bg-indigo-800 hover:bg-indigo-400 rounded-full p-2"
+                  >
+                    Login
+                  </Link>
                 </div>
               </div>
             </div>

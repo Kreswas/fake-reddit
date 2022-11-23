@@ -17,6 +17,7 @@ type Props = {
 export default function PostFromDataBase(props: Props) {
   // const [subredditFilter, setSubredditFilter] = useState(0);
   const [filteredPosts, setFilteredPosts] = useState(props.filteredPosts);
+
   return (
     <div>
       <Head>
@@ -26,22 +27,25 @@ export default function PostFromDataBase(props: Props) {
 
       <PostBox />
 
-      <div className="flex gap-4 my-4 px-8 ">
-        <div className="w-52">
-          <TopicSelector
-            subreddits={props.subredditList}
-            onChange={(id) =>
-              setFilteredPosts(
-                id === undefined
-                  ? props.filteredPosts
-                  : props.filteredPosts.filter(
-                      (post) => post.subredditsId === id,
-                    ),
-              )
-            }
-          ></TopicSelector>
+      <div className="flex gap-4 my-4 px-4 ">
+        <div className="relative">
+          <div className="w-52 sticky top-16">
+            <TopicSelector
+              subreddits={props.subredditList}
+              onChange={(id) =>
+                setFilteredPosts(
+                  id === undefined
+                    ? props.filteredPosts
+                    : props.filteredPosts.filter(
+                        (post) => post.subredditsId === id,
+                      ),
+                )
+              }
+            ></TopicSelector>
+          </div>
         </div>
-        <div className="max-w-2xl flex-1 flex flex-col gap-4">
+        {/* <div className="flex-1">hellohello</div> */}
+        <div className="max-w-2xl flex-1 flex flex-col gap-4 ml-20">
           {filteredPosts?.length ? (
             filteredPosts?.map((post, idx) => (
               <PostPreview key={idx} post={post} />
@@ -62,8 +66,44 @@ export default function PostFromDataBase(props: Props) {
             </button>
           </div>
         </div>
+        <div className="ml-52 rounded-md relative px-2.5">
+          <div className="sticky top-16">
+            {/* <div className="sticky top-16"> */}
+            <strong>
+              <p className="text-lg mb-4">Most Popular Games This Month</p>
+            </strong>
+            <hr />
+            <div className="sticky">
+              <div className="grid gap-4 text-lg">
+                <a href="https://www.metacritic.com/game/playstation-5/god-of-war-ragnarok">
+                  <div className="mt-4 text-center">God Of War: Ragnarök</div>
+                </a>
+                <hr />
+                <a href="https://www.metacritic.com/game/playstation-5/marvels-spider-man-miles-morales">
+                  <div className=" text-center">
+                    Spider-Man: Miles Morales (PC)
+                  </div>
+                </a>
+                <hr />
+                <a href="https://overwatch.blizzard.com/en-gb/">
+                  <div className=" text-center">Overwatch 2</div>
+                </a>
+                <hr />
+                <a href="https://playvalorant.com/en-gb/">
+                  <div className=" text-center">Valorant</div>
+                </a>
+                <hr />
+                <a href="https://www.cyberpunk.net/at/en/">
+                  <div className=" text-center">Cyberpunk 2077</div>
+                </a>
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    // </div>
   );
 }
 
@@ -117,7 +157,8 @@ export const TopicSelectorItem = (
 ) => (
   <div
     className={
-      'p-2 rounded cursor-pointer ' + (props.active ? 'sidebar' : 'surface')
+      'p-2 rounded text-center cursor-pointer ' +
+      (props.active ? 'sidebar' : 'surface')
     }
     onClick={props.onClick}
   >
@@ -153,7 +194,7 @@ export const PostPreview = (props: { post: PostDTO }) => (
         </div>
         <h3 className="text-lg">{props.post.title}</h3>
         <div className="place-self-center">
-          <img className="w-full" src={props.post.image} alt="" />
+          <img className="max-h-96" src={props.post.image} alt="" />
         </div>
         <hr />
         <div className="mb-5">{props.post.body}</div>

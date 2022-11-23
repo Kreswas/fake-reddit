@@ -72,8 +72,8 @@ export default function Login(props: Props) {
             return <p key={error.message}>ERROR: {error.message}</p>;
           })}
           <div className="flex items-center justify-center ">
-            <div className="bg-black flex flex-col w-1/3 border border-gray-900 rounded-lg px-8 py-5">
-              <div className="flex flex-col space-y-5 mt-5">
+            <div className="bg-form flex flex-col w-1/3 border border-gray-900 rounded-lg px-8 py-5">
+              <div className="flex flex-col space-y-5 mt-5 ">
                 <label className="font-bold text-lg text-white ">
                   User Name
                 </label>
@@ -87,7 +87,7 @@ export default function Login(props: Props) {
                 />
                 <label className="font-bold text-lg text-white">Password</label>
                 <input
-                  className="border rounded-lg py-3 px-3 bg-black border-indigo-600 placeholder-white-500 text-white"
+                  className="border rounded-md py-3 px-3 bg-black border-indigo-600 placeholder-white-500 text-white"
                   type="password"
                   value={password}
                   onChange={(event) => {
@@ -97,21 +97,27 @@ export default function Login(props: Props) {
                 />
                 <br />
                 <button
-                  className="border border-indigo-600 bg-black text-white rounded-lg py-3 font-semibold"
+                  className="border border-indigo-600 bg-black text-white rounded-lg py-3 mx-28 font-semibold hover:bg-gray-900"
                   onClick={async () => {
                     await loginHandler();
                   }}
                 >
                   Log In
                 </button>
-                <div>
+                <div className="text-center">
                   <p> Don't have any account ?</p>
-                  <Link href="/register">Create Account</Link>
+                  <Link
+                    href="/register"
+                    type="button"
+                    className="bg-indigo-800 hover:bg-indigo-400 rounded-full p-2 mt-2"
+                  >
+                    Create Account
+                  </Link>
                 </div>
-                <div>
+                <div className="text-center flex flex-col">
                   <p>or log in with</p>
                   <button
-                    className="cursor-pointer items-center space-x-2 border border-gray-100 p-2 lg:flex hover:bg-gray-100"
+                    className="cursor-pointer self-center space-x-2 border border-orange-900 bg-orange-600 p-2 lg:flex hover:bg-orange-00 rounded-xl mt-2"
                     onClick={() => signIn()}
                   >
                     Reddit

@@ -34,7 +34,7 @@ export default function UserProfile(props: Props) {
   return (
     <>
       <Head>
-        <title>Your Profile | GameIt</title>
+        <title>Your Post History | GameIt</title>
         <meta name="description" content="Biography of the person" />
       </Head>
       <div>
@@ -44,17 +44,22 @@ export default function UserProfile(props: Props) {
           <strong>
             <h1 className="text-center text-3xl">Hello, {nameCapitalized}!</h1>
           </strong>
+
+          <div>
+            {/* <h1>Hello! {props.user.username}</h1> */}
+            {/* <p>Home Page</p> */}
+            <button className="ml-10 bg-gray-900 p-2 rounded-full hover:bg-gray-600">
+              <Link href="/">Back to the Home Page</Link>
+            </button>
+          </div>
           <br />
           <br />
           <br />
         </div>
-        <div>
-          {/* <h1>Hello! {props.user.username}</h1> */}
-          {/* <p>Home Page</p> */}
-          <button>
-            <Link href="/">Home Page</Link>
-          </button>
-        </div>
+      </div>
+      <div>
+        <h2 className="text-center text-2xl">Post History</h2>
+        <hr className=" border-dotted border-t-8 mt-2 mx-56" />
       </div>
       <div className="mt-5 mb-5 space-y-5 mx-auto max-w-2xl">
         {props.postss?.map((post) => {

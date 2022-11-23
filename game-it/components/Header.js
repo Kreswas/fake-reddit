@@ -4,6 +4,7 @@ import {
   HomeIcon,
 } from '@heroicons/react/20/solid';
 import {
+  ChatBubbleLeftRightIcon,
   MagnifyingGlassIcon,
   MoonIcon,
   PlusIcon,
@@ -37,7 +38,7 @@ function Header(props) {
   }
 
   return (
-    <div className="sticky top-0 z-50 flex surface px-4 py-2 shadow-sm">
+    <div className="sticky top-0 z-50 flex surface px-4 py-2 shadow-sm gap-2">
       <div className="relative h-10 w-20 mt-1 flex-shrink-0 cursor-pointer">
         <Link href="/">
           <Image
@@ -48,13 +49,13 @@ function Header(props) {
           />
         </Link>
       </div>
-      <Link href="/" className="mx-7 flex items-center xl:min-w-[300px]">
+      <Link href="/" className="mx-7 flex items-center">
         <HomeIcon className="h-5 w-5" />
-        <p className="flex-1 ml-2 hidden lg:inline cursor-default">Home</p>
+        <p className=" ml-2 hidden lg:inline cursor-default">Home</p>
         <ChevronDownIcon className="h-5 w-5 cursor-pointer" />
       </Link>
       {/* Search box */}
-      <form className="flex flex-1 items-center space-x-2 rounded-full border border-gray-200 post px-3 py-1">
+      <form className="flex flex-1 items-center space-x-2 rounded-full border border-gray-200 post px-3 py-1 mr-20">
         <MagnifyingGlassIcon className="h-6 w-6 text-gray-400" />
         <input
           className="flex-1 bg-transparent outline-none"
@@ -63,15 +64,19 @@ function Header(props) {
         />
         <button type="submit" hidden />
       </form>
-      <div className=" text-gray-500 space-x-2 mx-5 items-center hidden lg:inline-flex">
-        <MoonIcon className="icon" onClick={() => toggleDarkMode()} />
+      <div className=" text-gray-500 space-x-4 mx-5 items-center hidden lg:inline-flex">
+        <ChatBubbleLeftRightIcon className="icon hover:bg-gray-300" />
+        <MoonIcon
+          className="icon hover:bg-gray-300"
+          onClick={() => toggleDarkMode()}
+        />
         <PlusIcon
-          className="icon"
+          className="icon hover:bg-gray-300"
           onClick={() => (location.href = '/posts/submit')}
         />
       </div>
       <div className="ml-5 flex items-center lg:hidden">
-        <Bars3Icon className="icon" />
+        <Bars3Icon className="icon hover:bg-gray-300" />
       </div>
 
       {/* Sign in / SignOut button */}
@@ -95,11 +100,11 @@ function Header(props) {
       {props.user ? (
         <>
           <UserCircleIcon
-            className="icon mr-5 m-0 m-auto"
-            onClick={() => (location.href = '/private-profile')}
+            className="icon mt-1 mr-3 m-0 m-auto text-gray-500 hover:bg-gray-300"
+            onClick={() => (location.href = `/profile/${props.user.username}`)}
           />
           <Anchor
-            className="hidden cursor-pointer items-center space-x-2 border border-gray-400 p-2 lg:flex hover:bg-gray-100 rounded-full"
+            className="hidden cursor-pointer items-center space-x-2 border border-gray-400 p-2 lg:flex hover:bg-gray-800 rounded-full"
             href="/logout"
           >
             Log Out

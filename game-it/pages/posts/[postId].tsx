@@ -14,7 +14,6 @@ type UserHere = {
   id: number;
   username: string;
 };
-
 type Props = {
   foundPostsss?: PostDTO;
   user?: UserHere;
@@ -117,10 +116,10 @@ export default function SinglePost(props: Props) {
             <em>add the upvotes add the comment number with the icon???????</em>
           </strong>
         </div> */}
-        <p>Leave a comment.</p>
         <div className="grid place-items-center">
           {props.user ? (
             <>
+              <p>Leave a comment.</p>
               <div>
                 {' '}
                 <textarea
@@ -174,9 +173,12 @@ export default function SinglePost(props: Props) {
               </div>
             </>
           ) : (
-            <div>
+            <div className="flex flex-col items-center">
               <div> to leave a comment please first log in </div>
-              <Link href="/login">Login</Link>
+              <br />
+              <Link href="/login">
+                <button className="bg-blue-500 rounded-full px-5">Login</button>
+              </Link>
             </div>
           )}
         </div>

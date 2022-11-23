@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import TimeAgo from 'react-timeago';
 import { getPostByLoggedInUser, Post } from '../../../database/post';
 import { getSubreddits, Subreddit } from '../../../database/subreddit';
 import { getUserBySessionToken } from '../../../database/users';
@@ -157,116 +158,127 @@ export default function Admin(props: Props) {
       width-100%;
       display-block;"
         >
-          <h1>Create a post</h1>
-          <div>
-            <input type="file" name="image" onChange={uploadImage} />
+          <div className="flex flex-col items-center">
+            <h1 className="mt-10 mb-5 text-2xl">Create a post</h1>
             <div>
-              <img src={image} className="height-20 width-20" alt="" />
+              <h2 className="text-lg">Upload an image:</h2>
+              <input
+                type="file"
+                name="image"
+                onChange={uploadImage}
+                className=" border rounded-t-sm"
+              />
+              <img
+                src={image}
+                className="max-h-96 m-w-150 text-center text-gray-500"
+                // alt="Image Preview"
+              />
             </div>
           </div>
 
-          <input
-            placeholder="Title"
-            value={postTitleInput}
-            required
-            onChange={(post) => {
-              setPostTitleInput(post.currentTarget.value);
-            }}
-          />
-
-          <br />
-
-          <br />
-          <textarea
-            placeholder="Text (optional)"
-            // required
-            value={bodyInput}
-            onChange={(post) => {
-              setBodyInput(post.currentTarget.value);
-            }}
-          />
-
-          <br />
-
-          <div>
-            <label> Topic/Genre: </label>
-            <select
-              className="search-dark"
+          <div className="flex flex-col mx-80 border rounded-md post">
+            <input
+              placeholder="Title"
+              className="mt-5 surface mx-3 py-1.5 rounded-md border px-2"
+              value={postTitleInput}
               required
-              value={subredditIdInput}
               onChange={(post) => {
-                setSubredditIdInput(Number(post.currentTarget.value));
+                setPostTitleInput(post.currentTarget.value);
               }}
-            >
-              <option>Select a topic </option>
-              {props.subredditsList?.map((subreddit) => {
-                return (
-                  <option
-                    value={subreddit.id}
-                    key={`subredditsList-${subreddit.id}`}
-                  >
-                    {subreddit.topic}
-                  </option>
-                );
-              })}
-            </select>
+            />
+
+            <br />
+
+            <br />
+            <textarea
+              placeholder="Text (optional)"
+              // required
+              className="border rounded-md surface mx-3 py-1.5 px-2"
+              value={bodyInput}
+              onChange={(post) => {
+                setBodyInput(post.currentTarget.value);
+              }}
+            />
+
+            <br />
+
+            <div className="ml-3">
+              <label>
+                <strong> Topic/Genre: </strong>
+              </label>
+              <select
+                className="border-0 cursor-pointer rounded-md drop-shadow-md search-dark duration-300 hover:bg-blue-900 focus:bg-blue-800"
+                required
+                value={subredditIdInput}
+                onChange={(post) => {
+                  setSubredditIdInput(Number(post.currentTarget.value));
+                }}
+              >
+                <option>Select a topic </option>
+                {props.subredditsList?.map((subreddit) => {
+                  return (
+                    <option
+                      value={subreddit.id}
+                      key={`subredditsList-${subreddit.id}`}
+                    >
+                      {subreddit.topic}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            <br />
+            <br />
+
+            <div className="flex flex-row-reverse gap-1.5 mb-2">
+              <button
+                className="border-2 border-blue-600 rounded-lg px-3 py-2 text-blue-400 cursor-pointer hover:bg-blue-600 hover:text-blue-200 duration-500 mr-2"
+                onClick={async () => {
+                  await createPostFromApi();
+                }}
+              >
+                submit
+              </button>
+              <button
+                className="border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200 duration-500"
+                onClick={() => {
+                  clearStatus();
+                }}
+              >
+                clear
+              </button>
+            </div>
           </div>
-
           <br />
-          <br />
-
-          <div>
-            {' '}
-            <button
-              onClick={async () => {
-                await createPostFromApi();
-              }}
-            >
-              submit
-            </button>
-            <button
-              onClick={() => {
-                clearStatus();
-              }}
-            >
-              clear
-            </button>
-          </div>
-
           <hr />
 
           <h2>Your Past Posts.</h2>
-          <hr className="my-2 h-px bg-gray-200 border-0 dark:bg-gray-700" />
+          <hr className="my-2 h-px bg-gray-200 border-0 dark:bg-gray-700 " />
         </div>
         <div className="mt-5 space-y-5">
-          {/* <input
-            placeholder="search"
-            onChange={(e) => {
-              if (filteredPosts.length <= 0) {
-                setFilteredPosts(posts);
-              }
-
-              if (e.currentTarget.value.length <= 0) {
-                setPosts(filteredPosts);
-              } else {
-                const filteredPost = posts.filter((post) => {
-                  return post.title.includes(e.currentTarget.value);
-                });
-
-                setPosts(filteredPost);
-              }
-            }}
-          /> */}
           {posts?.map((post) => {
             return (
               <div
-                className="border-solid border-2 border-black rounded"
+                className="border-solid border-2 border-gray-500 rounded-md mx-32"
                 key={`postId-${post.id}`}
               >
-                <div></div>
-                <div>Post Title: {post.title} </div>
-                <div>
+                <div className="flex">
+                  <TimeAgo date={post.postDate} className="text-xs flex-end" />
+                </div>
+                <a href={`/posts/${post.id}`}>
+                  <div className="mb-2 flex">
+                    Post Title: <br />
+                    {post.title}{' '}
+                    {/* <TimeAgo date={post.postDate} className="text-xs flex-end" /> */}
+                  </div>
+                  <hr />
+                  <div className="mb-2">{post.body}</div>
+                </a>
+                <div className="flex gap-1.5 mb-2">
+                  <hr className="border-dashed" />
                   <button
+                    className="border-2 border-blue-600 rounded-lg px-3 py-2 text-blue-400 cursor-pointer hover:bg-blue-600 hover:text-blue-200 duration-500 "
                     onClick={() => {
                       edit(post.id);
                     }}
@@ -274,6 +286,7 @@ export default function Admin(props: Props) {
                     edit
                   </button>
                   <a
+                    className="border-2 border-red-600 rounded-lg px-3 py-2 text-white cursor-pointer bg-red-900 hover:bg-red-600 hover:text-red-200 duration-500"
                     onClick={async () => {
                       const result = confirm('Want to delete?');
                       if (result) {
