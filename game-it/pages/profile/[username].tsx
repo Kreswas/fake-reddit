@@ -132,7 +132,7 @@ export default function UserProfile(props: Props) {
               location.href = '/posts/submit';
             }}
           >
-            Create a new post
+            Create/Delete Post
           </button>
           <button
             className="border-2 border-purple-600 text-purple-600 rounded-full px-3 py-2 text-blue-400 cursor-pointer hover:bg-purple-600 hover:text-white duration-500 "

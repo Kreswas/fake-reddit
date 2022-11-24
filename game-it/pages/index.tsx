@@ -24,9 +24,7 @@ export default function PostFromDataBase(props: Props) {
         <title>GameIt/Home</title>
         <meta name="description" content="Game It home page" />
       </Head>
-
       <PostBox />
-
       <div className="flex gap-4 my-4 px-4 ">
         <div className="relative">
           <div className="w-52 sticky top-16">
@@ -45,7 +43,7 @@ export default function PostFromDataBase(props: Props) {
           </div>
         </div>
         {/* <div className="flex-1">hellohello</div> */}
-        <div className="max-w-2xl flex-1 flex flex-col gap-4 ml-20">
+        <div className="max-w-2xl flex-1 flex flex-col gap-4 ml-28">
           {filteredPosts?.length ? (
             filteredPosts?.map((post, idx) => (
               <PostPreview key={idx} post={post} />
@@ -66,44 +64,47 @@ export default function PostFromDataBase(props: Props) {
             </button>
           </div>
         </div>
-        <div className="ml-52 rounded-md relative px-2.5">
-          <div className="sticky top-16">
+        <div className=" rounded-md relative px-2.5 ml-auto mr-0">
+          <div className="sticky top-16 border rounded-md p-3 border-gray-500 surface hover:bg-neutral-900 pb-5">
             {/* <div className="sticky top-16"> */}
             <strong>
-              <p className="text-lg mb-4">Most Popular Games This Month</p>
+              <p className="text-lg mb-4 text-center">Game of the Month!</p>
             </strong>
-            <hr />
+            <hr className="border-gray-500" />
             <div className="sticky">
               <div className="grid gap-4 text-lg">
-                <a href="https://www.metacritic.com/game/playstation-5/god-of-war-ragnarok">
-                  <div className="mt-4 text-center">God Of War: Ragnarök</div>
+                <a
+                  href="https://www.metacritic.com/game/playstation-5/god-of-war-ragnarok"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="mt-4 text-center ">God Of War: Ragnarök</div>
                 </a>
-                <hr />
-                <a href="https://www.metacritic.com/game/playstation-5/marvels-spider-man-miles-morales">
-                  <div className=" text-center">
-                    Spider-Man: Miles Morales (PC)
+                <hr className="border-gray-500" />
+              </div>
+              <div className="grid gap-4 text-lg">
+                <a
+                  href="https://www.metacritic.com/game/playstation-5/god-of-war-ragnarok"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div>
+                    <img
+                      src="https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7Oi0s.png"
+                      width="250px"
+                      className="mt-7"
+                    />
                   </div>
                 </a>
-                <hr />
-                <a href="https://overwatch.blizzard.com/en-gb/">
-                  <div className=" text-center">Overwatch 2</div>
-                </a>
-                <hr />
-                <a href="https://playvalorant.com/en-gb/">
-                  <div className=" text-center">Valorant</div>
-                </a>
-                <hr />
-                <a href="https://www.cyberpunk.net/at/en/">
-                  <div className=" text-center">Cyberpunk 2077</div>
-                </a>
-                <hr />
+                <div className="">
+                  <p className="text-xs break-normal ..."></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    // </div>
   );
 }
 
@@ -157,8 +158,7 @@ export const TopicSelectorItem = (
 ) => (
   <div
     className={
-      'p-2 rounded text-center cursor-pointer ' +
-      (props.active ? 'sidebar' : 'surface')
+      'p-2 rounded  cursor-pointer ' + (props.active ? 'sidebar' : 'surface')
     }
     onClick={props.onClick}
   >
@@ -169,7 +169,7 @@ export const TopicSelectorItem = (
 export const PostPreview = (props: { post: PostDTO }) => (
   <div
     key={`posts-${props.post.id}`}
-    className="drop-shadow-sm surface p-4 rounded"
+    className="drop-shadow-sm surface hover:bg-neutral-900 p-4 rounded-md"
   >
     <a href={`posts/${props.post.id}`}>
       <div className="flex flex-col gap-4">

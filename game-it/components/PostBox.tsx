@@ -5,7 +5,7 @@ function PostBox() {
     <form>
       <div className="flex items-center space-x-3">
         <input
-          className="max-w-2xl flex-1 flex flex-col gap-4 ml-80 mt-3 rounded-md post p-2 pl-5 outline-none"
+          className="max-w-2xl flex-1 flex flex-col gap-4 ml-[352px] mt-3 rounded-md post p-2 pl-5 outline-none"
           // disabled={!session}
           type="text"
           // placeholder={session ? 'Create a Post' : 'Sign in to Post'}

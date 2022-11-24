@@ -57,7 +57,7 @@ function Header(props) {
         <ChevronDownIcon className="h-5 w-24 cursor-pointer" />
       </Link>
       {/* Search box */}
-      <form className="flex flex-1 items-center space-x-2 rounded-full border border-gray-200 post px-3 py-1 mr-20 ml-20">
+      <form className="flex flex-1 items-center space-x-2 rounded-full border border-gray-200 post px-3 py-1 mr-20 ml-15">
         <MagnifyingGlassIcon className="h-6 w-6 text-gray-400" />
         <input
           className="flex-1 bg-transparent outline-none"

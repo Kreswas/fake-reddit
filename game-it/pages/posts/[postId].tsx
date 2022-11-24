@@ -177,7 +177,9 @@ export default function SinglePost(props: Props) {
               <div> to leave a comment please first log in </div>
               <br />
               <Link href="/login">
-                <button className="bg-blue-500 rounded-full px-5">Login</button>
+                <button className="bg-blue-500 rounded-full px-5">
+                  Log In
+                </button>
               </Link>
             </div>
           )}
